@@ -8,11 +8,45 @@
 import SwiftUI
 
 struct MainTabBarView: View {
+    // MARK: - Properties
+    @State private var selectedTab: TabItem = .home
+    
+    // MARK: - Body
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 1.2)
+                
+                HStack(alignment: .bottom,spacing: 36) {
+                    ForEach(TabItem.allCases, id: \.self) { tab in
+                        Button {
+                            withAnimation(.snappy(duration: 0.2)) {
+                                selectedTab = tab
+                            }
+                        } label: {
+                            VStack(alignment: .center, spacing: 5) {
+                                Image(tab.icon)
+                                    .frame(width: 32, height: 32)
+                                    .foregroundStyle(selectedTab == tab ? .appPink : .appGray)
+                                
+                                Text(tab.title)
+                                    .foregroundStyle(.appGray)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        
+                    }
+                }
+                .padding(.top, 17)
+            }
+        }
+        .frame(maxHeight: .infinity, alignment: .bottom)
     }
 }
 
+// MARK: - Preview
 #Preview {
     MainTabBarView()
 }
