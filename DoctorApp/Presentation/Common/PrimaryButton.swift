@@ -25,6 +25,7 @@ struct PrimaryButton: View {
                 .overlay(alignment: .center) {
                     Text(isActive ? "Записаться" : "Нет свободного расписания")
                         .font(.system(size: 16, weight: .semibold, design: .default))
+                        .foregroundStyle(isActive ? .white : .appBlack)
                 }
         }
         .buttonStyle(.plain)
