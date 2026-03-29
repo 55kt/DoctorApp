@@ -11,6 +11,7 @@ struct PrimaryButton: View {
     // MARK: - Properties
     var title: String?
     var isActive: Bool
+    var isLarge: Bool = false
     var action: () -> Void
     
     private var buttonTitle: String {
@@ -26,7 +27,7 @@ struct PrimaryButton: View {
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(isActive ? .white : .appBlack)
                 .frame(maxWidth: .infinity)
-                .frame(height: 47)
+                .frame(height: isLarge ? 56: 47)
                 .background(isActive ? Color.appPink : Color.primaryButtonGray)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
         }
