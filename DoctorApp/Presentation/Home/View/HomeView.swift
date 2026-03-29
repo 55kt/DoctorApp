@@ -8,11 +8,43 @@
 import SwiftUI
 
 struct HomeView: View {
+    // MARK: - Properties
+    @State private var text: String = ""
+    
+    // MARK: - Body
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0) {
+            // Search
+            SearchBarView(searchText: $text)
+                .padding(.horizontal)
+                .padding(.bottom, 10)
+            
+            // List of doctors
+            List {
+                ForEach(0...8, id: \.self) { card in
+                    DoctorCardView()
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.appBackground)
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .background(Color.appBackground)
+            
+            // Tab Bar
+            MainTabBarView()
+        }
+        .ignoresSafeArea(.keyboard)
+        .background(Color.appBackground)
+        .navigationTitle("Педиатры")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
+// MARK: - Preview
 #Preview {
-    HomeView()
+    NavigationView {
+        HomeView()
+    }
 }

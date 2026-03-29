@@ -16,7 +16,7 @@ struct DoctorCardView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 16) {
                 
-                // User Image
+                // User image
                 Image("vz")
                     .resizable()
                     .scaledToFill()
@@ -62,7 +62,7 @@ struct DoctorCardView: View {
             }
             .padding(.bottom, 15)
             
-            // Appointment Button
+            // Appointment button
             PrimaryButton(isActive: true) {
                 // Action
             }
@@ -70,10 +70,11 @@ struct DoctorCardView: View {
         .padding(.top, 20)
         .padding(.horizontal)
         .padding(.bottom)
+        .background(Color.white)
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.primaryButtonGray, lineWidth: 1.2)
+                .stroke(Color.primaryButtonGray, lineWidth: 1)
         )
     }
 }
