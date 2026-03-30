@@ -7,12 +7,18 @@
 
 import SwiftUI
 
-struct AppointmentsListView: View {
-    // MARK: - Properties
-    
+struct AppointmentsListView: View {    
     // MARK: - Body
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.appBackground
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            Text("Appointments View")
+                .font(.system(size: 50, weight: .bold))
+                .foregroundStyle(.appBlack)
+        }
+        .ignoresSafeArea()
     }
 }
 

@@ -9,32 +9,62 @@ import SwiftUI
 
 struct DoctorProfileHeader: View {
     // MARK: - Properties
-    var doctorPhoto: String
-    var firstName: String
-    var patronymic: String
-    var lastName: String
+    var avatarURL: URL?
+    var fullName: String
+    var imageSize: CGFloat = 50
+    
+    @State private var isTimedOut = false
+    @State private var isLoaded = false
     
     // MARK: - Body
     var body: some View {
         HStack(spacing: 16) {
-            Image(doctorPhoto)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 50, height: 50)
+            if let url = avatarURL, !isTimedOut {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .onAppear {
+                                isLoaded = true
+                            }
+                    case .failure:
+                        placeholderImage
+                    case .empty:
+                        ProgressView()
+                            .tint(.appPink)
+                    @unknown default:
+                        placeholderImage
+                    }
+                }
+                .frame(width: imageSize, height: imageSize)
                 .clipShape(Circle())
-            
-            // Username
-            VStack(alignment: .leading, spacing: 0) {
-                Text("\(lastName)\n\(firstName) \(patronymic)")
-                    .fixedSize(horizontal: false, vertical: true)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        if !isLoaded {
+                            isTimedOut = true
+                        }
+                    }
+                }
+            } else {
+                placeholderImage
+                    .frame(width: imageSize, height: imageSize)
+                    .clipShape(Circle())
             }
-            .font(.system(size: 16, weight: .semibold))
-            .lineHeight(.exact(points: 24))
+            
+            Text(fullName)
+                .font(.system(size: 16, weight: .semibold))
+                .fixedSize(horizontal: false, vertical: true)
+                .foregroundStyle(.appBlack)
         }
     }
-}
-
-// MARK: - Preview
-#Preview {
-    DoctorProfileHeader(doctorPhoto: "vz", firstName: "Владимир", patronymic: "Вольфович", lastName: "Жириновский")
+    
+    // MARK: - Views
+    private var placeholderImage: some View {
+        Image(systemName: "person.circle.fill")
+            .resizable()
+            .scaledToFill()
+            .foregroundStyle(.appPink)
+    }
 }

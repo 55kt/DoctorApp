@@ -27,6 +27,8 @@ struct SearchBarView: View {
             .padding(.vertical, 10)
             .padding(.horizontal, 9)
             .frame(maxWidth: .infinity)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color.primaryButtonGray, lineWidth: 1.0)

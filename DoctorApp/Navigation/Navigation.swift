@@ -7,3 +7,7 @@
 
 import Foundation
 
+enum Navigation: Hashable {
+    case doctorDetail(Doctor)
+    case serviceDetails(Doctor)
+}

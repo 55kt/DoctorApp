@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct ChatView: View {
+    
+    // MARK: - Body
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.appBackground
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            Text("Chat View")
+                .font(.system(size: 50, weight: .bold))
+                .foregroundStyle(.appBlack)
+        }
+        .ignoresSafeArea()
     }
 }
 
+// MARK: - Preview
 #Preview {
     ChatView()
 }

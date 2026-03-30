@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ServiceDetailsView: View {
     // MARK: - Properties
+    let doctor: Doctor
+    @EnvironmentObject private var router: NavigationRouter
     
     // MARK: - Body
     var body: some View {
@@ -18,19 +20,26 @@ struct ServiceDetailsView: View {
             
             VStack(alignment: .leading, spacing: 26) {
                 NavigationTopBar(navigationTitle: "Стоимость услуг") {
-                    //
+                    router.popBack()
                 }
                 
                 VStack(spacing: 24) {
-                    serviceBar(title: "Видеоконсультация", leadingText: "30 мин", trailingText: "600 ₽", bottomRounded: false)
-                    serviceBar(title: "Чат с врачом", leadingText: "30 мин", trailingText: "600 ₽", bottomRounded: false)
-                    serviceBar(title: "Приём в клинике", leadingText: "В клинике", trailingText: "600 ₽", bottomRounded: true)
+                    if doctor.videoChatPrice > 0 {
+                        serviceBar(title: "Видеоконсультация", leadingText: "30 мин", trailingText: "\(doctor.videoChatPrice) ₽", bottomRounded: false)
+                    }
+                    if doctor.textChatPrice > 0 {
+                        serviceBar(title: "Чат с врачом", leadingText: "30 мин", trailingText: "\(doctor.textChatPrice) ₽", bottomRounded: false)
+                    }
+                    if doctor.hospitalPrice > 0 {
+                        serviceBar(title: "Приём в клинике", leadingText: "В клинике", trailingText: "\(doctor.hospitalPrice) ₽", bottomRounded: true)
+                    }
                 }
                 
                 Spacer()
             }
-            .padding(.horizontal)
+            .safeAreaPadding()
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
     
     // MARK: - Methods
@@ -69,10 +78,7 @@ struct ServiceDetailsView: View {
                 .stroke(Color.primaryButtonGray, lineWidth: 1)
             }
         }
-    }
-}
+        .foregroundStyle(.appBlack)
 
-// MARK: - Preview
-#Preview {
-    ServiceDetailsView()
+    }
 }

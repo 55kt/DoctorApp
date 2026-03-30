@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainTabBarView: View {
     // MARK: - Properties
-    @State private var selectedTab: TabItem = .home
+    @Binding var selectedTab: TabItem
     
     // MARK: - Body
     var body: some View {
@@ -31,7 +31,8 @@ struct MainTabBarView: View {
                                 .foregroundStyle(selectedTab == tab ? .appPink : .appGray)
                             
                             Text(tab.title)
-                                .foregroundStyle(.appGray)
+                                .font(.system(size: 10))
+                                .foregroundStyle(selectedTab == tab ? .appPink : .appGray)
                         }
                     }
                     .buttonStyle(.plain)
@@ -43,7 +44,6 @@ struct MainTabBarView: View {
     }
 }
 
-// MARK: - Preview
 #Preview {
-    MainTabBarView()
+    MainTabBarView(selectedTab: .constant(.home))
 }

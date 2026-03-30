@@ -10,15 +10,18 @@ import SwiftUI
 struct NavigationTopBar: View {
     // MARK: - Properties
     var navigationTitle: String
+    var dismissButtonIsHidden: Bool = false
     var dismissAction: () -> Void
     
     // MARK: - Body
     var body: some View {
         HStack {
-            Button {
-                dismissAction()
-            } label: {
-                Image("appChevronIcon")
+            if !dismissButtonIsHidden {
+                Button {
+                    dismissAction()
+                } label: {
+                    Image("appChevronIcon")
+                }
             }
 
             
@@ -26,6 +29,7 @@ struct NavigationTopBar: View {
             
             Text(navigationTitle)
                 .font(.system(size: 20, weight: .medium))
+                .foregroundStyle(.appBlack)
             
             Spacer()
             
