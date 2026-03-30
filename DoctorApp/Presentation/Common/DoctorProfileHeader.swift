@@ -26,7 +26,7 @@ struct DoctorProfileHeader: View {
             // Username
             VStack(alignment: .leading, spacing: 0) {
                 Text("\(lastName)\n\(firstName) \(patronymic)")
-                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .font(.system(size: 16, weight: .semibold))
             .lineHeight(.exact(points: 24))

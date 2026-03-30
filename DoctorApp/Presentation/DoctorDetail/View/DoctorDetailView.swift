@@ -14,44 +14,14 @@ struct DoctorDetailView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 16) {
-                // Custom Tab bar
-                HStack {
-                    Button {
-                        //
-                    } label: {
-                        Image("appChevronIcon")
-                    }
-
-                    
-                    Spacer()
-                    
-                    Text("Педиатр")
-                        .font(.system(size: 20, weight: .medium))
-                    
-                    Spacer()
-                    
-                    // This icon needed for centering title (Костыль)
-                    Image("appChevronIcon")
-                        .opacity(0)
+                // Custom Navigation Top Bar
+                NavigationTopBar(navigationTitle: "Педиатр") {
+                    //
                 }
                 
                 // Doctor image & name
                 VStack(alignment: .leading, spacing: 20) {
-                    HStack(spacing: 16) {
-                        Image("vz")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                        
-                        // Username
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text("Семенова")
-                            Text("Дарья Сергеевна")
-                        }
-                        .font(.system(size: 16, weight: .semibold))
-                        .lineHeight(.exact(points: 24))
-                    }
+                    DoctorProfileHeader(doctorPhoto: "vz", firstName: "Владимир", patronymic: "Вольфович", lastName: "Жириновский")
                     
                     // Doctor Details (Expirience & other)
                     docAboutLine("appClockIcon", "Опыт работы: 27 лет")
