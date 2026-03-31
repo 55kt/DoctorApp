@@ -16,6 +16,11 @@
 			path = DoctorApp;
 			sourceTree = "<group>";
 		};
+		F5E2792F2F7C198000A28949 /* screenshots */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = screenshots;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 		F533F3B02F76BE5000ED5AEF = {
 			isa = PBXGroup;
 			children = (
+				F5E2792F2F7C198000A28949 /* screenshots */,
 				F533F3BB2F76BE5000ED5AEF /* DoctorApp */,
 				F533F3BA2F76BE5000ED5AEF /* Products */,
 			);
@@ -62,6 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F533F3BB2F76BE5000ED5AEF /* DoctorApp */,
+				F5E2792F2F7C198000A28949 /* screenshots */,
 			);
 			name = DoctorApp;
 			packageProductDependencies = (
