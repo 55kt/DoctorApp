@@ -56,6 +56,7 @@ struct DoctorProfileHeader: View {
             Text(fullName)
                 .font(.system(size: 16, weight: .semibold))
                 .fixedSize(horizontal: false, vertical: true)
+                .lineHeight(.exact(points: 24))
                 .foregroundStyle(.appBlack)
         }
     }
