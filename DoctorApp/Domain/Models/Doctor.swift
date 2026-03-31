@@ -54,8 +54,7 @@ struct Doctor: Decodable, Identifiable, Hashable {
         case educationTypeLabel = "education_type_label"
     }
     
-    // MARK: - Computed Properties
-    
+    // MARK: - Computed Properties - (Затычки)
     var fullName: String {
         if patronymic.isEmpty {
             return "\(lastName)\n\(firstName)"

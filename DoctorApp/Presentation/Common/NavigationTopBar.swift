@@ -24,7 +24,6 @@ struct NavigationTopBar: View {
                 }
             }
 
-            
             Spacer()
             
             Text(navigationTitle)
@@ -38,9 +37,4 @@ struct NavigationTopBar: View {
                 .opacity(0)
         }
     }
-}
-
-// MARK: - Preview
-#Preview {
-    NavigationTopBar(navigationTitle: "Title") {}
 }

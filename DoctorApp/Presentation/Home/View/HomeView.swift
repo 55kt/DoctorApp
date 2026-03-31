@@ -59,6 +59,7 @@ struct HomeView: View {
         .ignoresSafeArea(.keyboard)
         .background(Color.appBackground)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
         .onAppear {
             if doctors.isEmpty {
                 loadDoctors()

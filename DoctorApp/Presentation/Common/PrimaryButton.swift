@@ -34,9 +34,3 @@ struct PrimaryButton: View {
         .buttonStyle(.plain)
     }
 }
-
-// MARK: - Preview
-#Preview {
-    PrimaryButton(isActive: false) {}
-        .padding(.horizontal)
-}

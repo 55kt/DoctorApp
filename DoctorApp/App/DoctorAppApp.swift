@@ -30,7 +30,7 @@ struct DoctorAppApp: App {
     
     @ViewBuilder
     private func tabView<Content: View>(for tab: TabItem, @ViewBuilder content: () -> Content) -> some View {
-        NavigationStack(path: tabPath(for: tab)) {
+        NavigationStack(path: router.binding(for: tab)) {
             content()
                 .navigationDestination(for: Navigation.self) { destination in
                     switch destination {
@@ -42,14 +42,5 @@ struct DoctorAppApp: App {
                 }
         }
         .opacity(router.selectedTab == tab ? 1 : 0)
-    }
-    
-    private func tabPath(for tab: TabItem) -> Binding<NavigationPath> {
-        switch tab {
-        case .home: return $router.homePath
-        case .appointments: return $router.appointmentsPath
-        case .chat: return $router.chatPath
-        case .profile: return $router.profilePath
-        }
     }
 }
