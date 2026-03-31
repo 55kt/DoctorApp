@@ -10,8 +10,9 @@ import SwiftUI
 struct SearchBarView: View {
     // MARK: - Properties
     @Binding var searchText: String
-    @State private var selectedSort: SortOption = .byPrice
-    @State private var sortDirection: SortDirection = .ascending
+    var selectedSort: SortOption
+    var sortDirection: SortDirection
+    var onSortTap: (SortOption) -> Void
     
     // MARK: - Body
     var body: some View {
@@ -22,7 +23,14 @@ struct SearchBarView: View {
                 
                 TextField("Поиск", text: $searchText)
                 
-                Spacer()
+                if !searchText.isEmpty {
+                    Button {
+                        searchText = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.appGray)
+                    }
+                }
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 9)
@@ -44,12 +52,7 @@ struct SearchBarView: View {
                     }
                     
                     Button {
-                        if selectedSort == option {
-                            sortDirection.toggle()
-                        } else {
-                            selectedSort = option
-                            sortDirection = .ascending
-                        }
+                        onSortTap(option)
                     } label: {
                         HStack(spacing: 6) {
                             Text(option.title)
@@ -59,6 +62,7 @@ struct SearchBarView: View {
                             if selectedSort == option {
                                 Image("appArrowIcon")
                                     .rotationEffect(.degrees(sortDirection == .ascending ? 0 : 180))
+                                    .animation(.easeInOut(duration: 0.2), value: sortDirection)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -75,10 +79,4 @@ struct SearchBarView: View {
             }
         }
     }
-}
-
-// MARK: - Preview
-#Preview {
-    SearchBarView(searchText: .constant(""))
-        .padding(.horizontal)
 }

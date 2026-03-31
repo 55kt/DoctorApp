@@ -30,9 +30,8 @@ struct DoctorCardView: View {
                     Spacer()
                 }
                 
-                // Rating, specialization & price — с отступом под фото
+                // Rating, specialization & price
                 VStack(alignment: .leading, spacing: 8) {
-                    // Rating
                     HStack(spacing: 2.4) {
                         ForEach(0..<5, id: \.self) { index in
                             Image("appStarIcon")

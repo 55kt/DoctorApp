@@ -10,9 +10,7 @@ import SwiftUI
 struct HomeView: View {
     // MARK: - Properties
     @EnvironmentObject private var router: NavigationRouter
-    @State private var text: String = ""
-    @State private var doctors: [Doctor] = []
-    @State private var isLoading: Bool = true
+    @StateObject private var viewModel = HomeViewModel()
     
     // MARK: - Body
     var body: some View {
@@ -23,18 +21,27 @@ struct HomeView: View {
                 }
                 .padding(.top, 16)
                 
-                SearchBarView(searchText: $text)
-                    .padding(.horizontal)
-                    .padding(.bottom, 10)
+                SearchBarView(
+                    searchText: $viewModel.searchText,
+                    selectedSort: viewModel.selectedSort,
+                    sortDirection: viewModel.sortDirection,
+                    onSortTap: { option in
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            viewModel.toggleSort(for: option)
+                        }
+                    }
+                )
+                .padding(.horizontal)
+                .padding(.bottom, 10)
             }
             
-            if isLoading {
+            if viewModel.isLoading {
                 Spacer()
                 ProgressView("Загрузка...")
                     .font(.system(size: 14))
                     .foregroundStyle(.appGray)
                 Spacer()
-            } else if doctors.isEmpty {
+            } else if viewModel.filteredDoctors.isEmpty {
                 Spacer()
                 Text("Врачи не найдены")
                     .font(.system(size: 16))
@@ -42,7 +49,7 @@ struct HomeView: View {
                 Spacer()
             } else {
                 List {
-                    ForEach(doctors) { doctor in
+                    ForEach(viewModel.filteredDoctors) { doctor in
                         DoctorCardView(doctor: doctor) {
                             router.navigate(to: .doctorDetail(doctor))
                         }
@@ -54,6 +61,7 @@ struct HomeView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .background(Color.appBackground)
+                .animation(.easeInOut(duration: 0.3), value: viewModel.filteredDoctors)
             }
         }
         .ignoresSafeArea(.keyboard)
@@ -61,20 +69,9 @@ struct HomeView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
         .onAppear {
-            if doctors.isEmpty {
-                loadDoctors()
+            if viewModel.filteredDoctors.isEmpty {
+                viewModel.loadDoctors()
             }
-        }
-    }
-    
-    // MARK: - Methods
-    private func loadDoctors() {
-        isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if let response = JSONLoader.loadFromBundle("doctors", as: DoctorResponse.self) {
-                doctors = response.record.data.users
-            }
-            isLoading = false
         }
     }
 }
