@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabBarView: View {
     // MARK: - Properties
     @Binding var selectedTab: TabItem
+    @State private var chatBadgeCount: Int = 1
     
     // MARK: - Body
     var body: some View {
@@ -29,6 +30,23 @@ struct MainTabBarView: View {
                             Image(tab.icon)
                                 .frame(width: 32, height: 32)
                                 .foregroundStyle(selectedTab == tab ? .appPink : .appGray)
+                                .overlay(alignment: .topTrailing) {
+                                    if tab == .chat && chatBadgeCount > 0 {
+                                        ZStack(alignment: .center) {
+                                            Circle()
+                                                .frame(width: 22)
+                                                .foregroundStyle(Color.white)
+                                            
+                                            Text("\(chatBadgeCount)")
+                                                .font(.system(size: 10))
+                                                .foregroundStyle(.white)
+                                                .frame(minWidth: 17, minHeight: 17)
+                                                .background(Color.appPink)
+                                                .clipShape(Circle())
+                                        }
+                                        .offset(x: 4, y: -4)
+                                    }
+                                }
                             
                             Text(tab.title)
                                 .font(.system(size: 10))
